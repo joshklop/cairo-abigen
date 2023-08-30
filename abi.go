@@ -8,12 +8,13 @@ type ABI struct {
 	Structs      []*Struct
 	Enums        []*Enum
 	Impls        []*Impl
+	Interfaces   []*Interface
 }
 
 type Function struct {
 	Name            string
 	Inputs          []*Input
-	Output          []*Output
+	Outputs         []*Output
 	StateMutability StateMutability
 }
 
@@ -46,23 +47,14 @@ type L1Handler struct {
 
 type Event struct {
 	Name     string
-	Members  []*EventField // STRUCT_EVENT
-	Variants []*EventField // ENUM_EVENT
+	Members  []*Member
+	Variants []*Variant
 }
 
-type EventField struct {
+type Variant struct {
 	Name string
 	Type string
-	Kind EventFieldKind
 }
-
-type EventFieldKind uint8
-
-const (
-	Key EventFieldKind = iota + 1
-	Data
-	Nested
-)
 
 type Struct struct {
 	Name    string
@@ -76,7 +68,7 @@ type Member struct {
 
 type Enum struct {
 	Name     string
-	Variants []*Member
+	Variants []*Variant
 }
 
 type Interface struct {
