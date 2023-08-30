@@ -61,8 +61,15 @@ func Generate(pkg string, abi *ABI) (string, error) {
 		resultStruct.Name = "Struct"+takeLast(aStruct.Name)
 		resultStruct.Fields = make([]*tmplField, 0)
 		for _, field := range aStruct.Members {
+			var _type string
+			// TODO more types
+			if field.Type == "core::integer::u128" {
+				_type = "[2]uint64"	
+			} else {
+				_type = "Type"+takeLast(field.Type) 
+			}
 			resultStruct.Fields = append(resultStruct.Fields, &tmplField{
-				Type: "Type"+takeLast(field.Type),
+				Type: _type,
 				Name: strings.ToUpper(string(field.Name[0]))+field.Name[1:],
 			})
 		}

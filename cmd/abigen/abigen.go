@@ -14,8 +14,6 @@ func main() {
 	if err != nil {
 		panic("-1"+err.Error())
 	}
-	fmt.Printf("pkg: %s\n", pkg)
-	fmt.Printf("filename: %s\n", string(abiFilename))
 	abiBytes, err := os.ReadFile(abiFilename)
 	if err != nil {
 		panic("0"+err.Error())
